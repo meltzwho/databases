@@ -1,0 +1,2 @@
+req.body shows data
+res.send('data' or obj)

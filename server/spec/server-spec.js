@@ -4,6 +4,7 @@
 var mysql = require('mysql');
 var request = require('request'); // You might need to npm install the request module!
 var expect = require('chai').expect;
+//var router = require('../routes.js');
 
 describe('Persistent Node Chat Server', function() {
   var dbConnection;
@@ -16,11 +17,11 @@ describe('Persistent Node Chat Server', function() {
     });
     dbConnection.connect();
 
-       var tablename = ""; // TODO: fill this out
+       var tablename = "messages"; // TODO: fill this out
 
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
-    dbConnection.query('truncate ' + tablename, done);
+    dbConnection.query('SELECT * FROM ' + tablename, done);
   });
 
   afterEach(function() {
@@ -29,6 +30,7 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should insert posted messages to the DB', function(done) {
     // Post the user to the chat server.
+    console.log('thing');
     request({
       method: 'POST',
       uri: 'http://127.0.0.1:3000/classes/users',
@@ -41,12 +43,11 @@ describe('Persistent Node Chat Server', function() {
         json: {
           username: 'Valjean',
           message: 'In mercy\'s name, three days is all I need.',
-          roomname: 'Hello'
+          roomname: 'Hello2'
         }
       }, function () {
         // Now if we look in the database, we should find the
         // posted message there.
-
         // TODO: You might have to change this test to get all the data from
         // your message table, since this is schema-dependent.
         var queryString = 'SELECT * FROM messages';
