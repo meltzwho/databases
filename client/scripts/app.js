@@ -6,7 +6,7 @@ var message = {
 };
 
 var friends = [];
-var lastSelected = null;
+var lastSelected = 'all';
 
 var checkSelection = function () {
   lastSelected = $('.dropdown option:selected').text();
@@ -112,6 +112,7 @@ var app = {
       // },
       contentType: 'application/json',
       success: function (data) {
+        checkSelection();
         populateRooms(data.results);
         addMessages(data.results);
       },

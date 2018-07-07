@@ -43,7 +43,9 @@
         lastSelected = newRoom;
         $('#text-to-add').val('');
         app.send({
-          roomname: `${lastSelected}`
+          message: 'created new room',
+          roomname: `${lastSelected}`,
+          username: window.location.search.slice(10)
         })
       })
 
@@ -52,7 +54,7 @@
         let name = window.location.search.slice(10)
         let currentmessage = {
           username: name,
-          text: text,
+          message: text,
           roomname: window.lastSelected,
         }
         app.send(currentmessage);
